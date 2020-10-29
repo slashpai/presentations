@@ -17,3 +17,11 @@ codeFences = false
 
 [params.reveal_hugo]
 highlight_theme = "github"
+
+[params.reveal_hugo.templates.yellow]
+background = "#f6f195"
+transition = "slide-in fade-out"
+
+[params.reveal_hugo.templates.blue]
+background = "#a5e2fd"
+transition = "slide-in fade-out"
