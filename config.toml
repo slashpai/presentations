@@ -1,0 +1,19 @@
+baseURL = "https://slashpai.github.io/presentations"
+languageCode = "en-us"
+title = "Presentations"
+
+theme = "reveal-hugo"
+
+[outputFormats.Reveal]
+baseName = "index"
+mediaType = "text/html"
+isHTML = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+codeFences = false
+
+[params.reveal_hugo]
+highlight_theme = "github"
