@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Docker in Action</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/presentations/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/presentations/reveal-js/css/reveal.css"><link rel="stylesheet" href="/presentations/reveal-js/css/theme/night.css" id="theme">
+<link rel="stylesheet" href="/presentations/highlight-js/github.min.css">
+    
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="docker-in-action">Docker in Action</h2>
+<p>Let&rsquo;s learn docker by handson</p>
+
+
+
+<aside class="notes"><ul>
+<li>Docker handson session</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="lets-get-to-know-docker-more-by-executing-cli-commands">Let&rsquo;s get to know docker more by executing cli commands</h2>
+</section><section>
+<h2 id="docker-commands">Docker Commands</h2>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker info</td>
+<td>Display system-wide information</td>
+<td>docker info</td>
+</tr>
+<tr>
+<td>docker version</td>
+<td>Show the Docker version information</td>
+<td>docker version</td>
+</tr>
+<tr>
+<td>docker pull</td>
+<td>Pull an image or a repository from a registry</td>
+<td>docker pull redis</td>
+</tr>
+<tr>
+<td>docker images</td>
+<td>List images</td>
+<td>docker images</td>
+</tr>
+<tr>
+<td>docker run</td>
+<td>Run a command in a new container</td>
+<td>docker run -d redis</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker ps</td>
+<td>List containers</td>
+<td>docker ps</td>
+</tr>
+<tr>
+<td>docker exec</td>
+<td>Run a command in a running container</td>
+<td>docker exec -it &lt;id/name&gt; sh</td>
+</tr>
+<tr>
+<td>docker inspect</td>
+<td>Return low-level information on Docker objects</td>
+<td>docker inspect &lt;object id/name&gt;</td>
+</tr>
+<tr>
+<td>docker  logs</td>
+<td>Fetch the logs of a container</td>
+<td>docker logs &lt;id/name&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker  stats</td>
+<td>Display a live stream of container(s) resource usage statistics</td>
+<td>docker stats</td>
+</tr>
+<tr>
+<td>docker network</td>
+<td>Manage networks</td>
+<td>docker network ls</td>
+</tr>
+<tr>
+<td>docker rename</td>
+<td>Rename a container</td>
+<td>docker rename &lt;old&gt; &lt;new name&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker  stop</td>
+<td>Stop one or more running containers</td>
+<td>docker stop &lt;id/name&gt;</td>
+</tr>
+<tr>
+<td>docker  rm</td>
+<td>Remove one or more containers</td>
+<td>docker rm &lt;id/name&gt;</td>
+</tr>
+<tr>
+<td>docker  rmi</td>
+<td>Remove one or more images</td>
+<td>docker rmi &lt;image id&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker volume</td>
+<td>Manage volumes</td>
+<td>docker volume ls</td>
+</tr>
+<tr>
+<td>docker  build</td>
+<td>Build an image from a Dockerfile</td>
+<td>dockr build . -t myapp:v1</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="command-help">Command Help</h2>
+<pre><code class="language-go">docker [command] --help
+</code></pre>
+<h3 id="example">Example</h3>
+<pre><code class="language-go">&gt; docker exec --help
+
+Usage:	docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;])
+  -w, --workdir string       Working directory inside the container
+</code></pre>
+</section><section>
+<h2 id="more-commands">More commands</h2>
+<p><a href="https://docs.docker.com/engine/reference/commandline/docker/">https://docs.docker.com/engine/reference/commandline/docker/</a></p>
+</section><section>
+<h2 id="docker-volumes-usecase">Docker Volumes Usecase</h2>
+<p>Jenkins</p>
+</section><section>
+<ul>
+<li>Jenkins version updates</li>
+<li>Plugin updates</li>
+<li>Without losing configs/jobs you already have</li>
+</ul>
+</section><section>
+<h2 id="docker-run-with-volumes">Docker run with volumes</h2>
+<pre><code class="language-go">docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+</code></pre>
+<ul>
+<li>
+<p>This will store the workspace in /var/jenkins_home</p>
+</li>
+<li>
+<p>All Jenkins data lives in there - including plugins and configuration</p>
+</li>
+<li>
+<p>This will automatically create a &lsquo;jenkins_home&rsquo; docker volume on the host machine, that will survive the container stop/restart/deletion</p>
+</li>
+</ul>
+</section><section>
+<h2 id="view-docker-volume-created">View docker volume created</h2>
+<pre><code class="language-bash">docker volume ls
+</code></pre>
+</section><section>
+<h2 id="alpine-images">Alpine Images</h2>
+<ul>
+<li>
+<p>Alpine Linux is a security-oriented, lightweight Linux distribution based on musl libc and busybox</p>
+</li>
+<li>
+<p>Alpine image is only 5MB and has access to a package repository</p>
+</li>
+<li>
+<p><a href="https://github.com/alpinelinux/docker-alpine">https://github.com/alpinelinux/docker-alpine</a></p>
+</li>
+</ul>
+</section><section>
+<h3 id="why-alpine-images">Why Alpine Images?</h3>
+<ul>
+<li>
+<p>Docker images today are big</p>
+</li>
+<li>
+<p>Usually much larger than they need to be</p>
+</li>
+<li>
+<p>There are a lot of ways to make them smaller, but the Docker populace still jumps to the ubuntu base image for most projects</p>
+</li>
+<li>
+<p>The size savings over ubuntu and other bases are huge:</p>
+</li>
+</ul>
+<pre><code class="language-bash">REPOSITORY  TAG     IMAGE ID      CREATED      SIZE
+alpine      latest  961769676411  4 weeks ago  5.58MB
+ubuntu      latest  2ca708c1c9cc  2 days ago   64.2MB
+debian      latest  c2c03a296d23  9 days ago   114MB
+centos      latest  67fa590cfc1c  4 weeks ago  202MB
+</code></pre>
+</section><section>
+<h3 id="alpine-based-images-vs-normal">Alpine based images vs normal</h3>
+<pre><code class="language-bash">ruby  2.6.6            39853018958e      13 days ago    840MB
+ruby  2.6.6-alpine     d86341b50737      5 weeks ago    49.8MB
+</code></pre>
+</section><section>
+<h2 id="building-images">Building Images</h2>
+</section><section>
+<h2 id="dockerfile">Dockerfile</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Docker can build images automatically by reading the instructions from a Dockerfile
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Using docker build users can create an automated build that executes several command-line instructions in succession
+</span></li>
+</ul>
+</section><section>
+<h2 id="example-1">Example</h2>
+<pre><code class="language-go">FROM ubuntu
+
+RUN apt-get update
+RUN apt-get install –y nginx
+CMD [“echo”,”Image created”]
+</code></pre>
+</section><section>
+<h2 id="dockerfile-commands">Dockerfile Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FROM</td>
+<td>Specify base image</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>List containers</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>to configure a container that will run as an executable</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>provide defaults for an executing container</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>copies new files or directories</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENV</td>
+<td>sets the environment variable</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>informs Docker that the container listens on the specified network ports</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>sets the user</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>sets the working directory</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="lets-build-images">Lets build images</h2>
+<h3 id="from-terminalgit-bash">From terminal/git bash</h3>
+<pre><code class="language-bash">git clone https://github.com/slashpai/docker_k8s_training.git
+cd docker_k8s_training
+cd docker_apps
+</code></pre>
+</section><section>
+<h2 id="example-1-1">Example 1</h2>
+<h3 id="simple-webapp">Simple WebApp</h3>
+<p>cd simple_webapp</p>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  A simple ruby web app using Sinatra
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Lets understand the app first
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Lets build the docker app from it
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  docker build  . -t simple-webapp:v1
+</span>
+</li>
+</ul>
+</section><section>
+<h3 id="run-docker-containers">Run docker containers</h3>
+<ul>
+<li>
+<p>docker run -d -p 9000:4567 &ndash;name simple-webapp1 simple-webapp:v1</p>
+</li>
+<li>
+<p>docker run -d -p 9001:4567 &ndash;name simple-webapp1 &ndash;env APP_COLOR=yellow simple-webapp:v1</p>
+</li>
+<li>
+<p>docker run -d -p 9002:4567 &ndash;name simple-webapp2 &ndash;env APP_COLOR=orange simple-webapp:v1</p>
+</li>
+<li>
+<p>Go to http://localhost:9000, http://localhost:9001 and http://localhost:9002</p>
+</li>
+</ul>
+</section><section>
+<h2 id="understanding-dockerfile">Understanding Dockerfile</h2>
+<pre><code class="language-go">FROM ruby:2.6.6-alpine
+
+WORKDIR /usr/src/app
+
+ENV APP_COLOR=&quot;pink&quot;
+
+COPY Gemfile ./
+
+RUN gem install bundler &amp;&amp; bundle install
+
+COPY . .
+
+EXPOSE 4567
+
+CMD [ &quot;ruby&quot;, &quot;app.rb&quot; ]
+</code></pre>
+</section><section>
+<h2 id="example-2">Example 2</h2>
+<h3 id="ruby-calculator">Ruby Calculator</h3>
+<p>cd calculator</p>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  A simple ruby calaculator to show how we can use docker to run adhoc tasks
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Lets understand the app first
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Lets build the docker app from it
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  docker build  . -t simple-calculator:v1
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  docker run simple-calculator:v1 3 + 4
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="review-the-container-created">Review the container created</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  docker ps
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  docker ps -a
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Any reason why it doesn&rsquo;t show in running container list?
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Noticed the ENTRYPOINT in Dockerfile?
+</span></li>
+</ul>
+</section><section>
+<h2 id="understanding-dockerfile-1">Understanding Dockerfile</h2>
+<pre><code class="language-go">FROM ruby:2.6.6-alpine
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+ENTRYPOINT [&quot;ruby&quot;, &quot;calculator.rb&quot;]
+</code></pre>
+</section><section>
+<h2 id="dockerignore-file">.dockerignore file</h2>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Before the docker CLI sends the context to the docker daemon, it looks for a file named .dockerignore in the root directory of the context
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  If this file exists, the CLI modifies the context to exclude files and directories that match patterns in it
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  This helps to avoid unnecessarily sending large or sensitive files and directories to the daemon and potentially adding them to images using ADD or COPY
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="example-3">Example 3</h2>
+<h3 id="quiz-app">Quiz App</h3>
+<p>cd quiz_app</p>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  A simple quiz app using node.js
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Noticed the .dockerignore file?
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Lets build the docker app from it
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  docker build  . -t quiz-app:v1
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="some-task-for-you">Some task for you</h2>
+<ul>
+<li>docker run -d -p 3500:3000 quiz-app:v1</li>
+<li>Go to http://localhost:3500</li>
+<li>Try the docker quiz 🤩</li>
+</ul>
+</section><section>
+<h2 id="understanding-dockerfile-2">Understanding Dockerfile</h2>
+<pre><code class="language-go">FROM node:15.3.0-alpine3.10
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+EXPOSE 3000
+CMD [ &quot;node&quot;, &quot;index.js&quot; ]
+</code></pre>
+</section><section>
+<h3 id="cmd-vs-entrypoint">CMD vs ENTRYPOINT</h3>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  CMD is an instruction that is best to use if you need a default command which users can easily override
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  ENTRYPOINT is preferred when you want to define a container with a specific executable
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  You cannot override an ENTRYPOINT when starting a container unless you add the &ndash;entrypoint flag
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Combine ENTRYPOINT with CMD if you need a container with a specified executable and a default parameter that can be modified easily
+</span>
+</li>
+</ul>
+
+
+
+<aside class="notes"><ul>
+<li>
+<p>If a Dockerfile has multiple CMDs, it only applies the instructions from the last one</p>
+</li>
+<li>
+<p>For example, when containerizing an application use ENTRYPOINT and CMD to set environment-specific variables.</p>
+</li>
+</ul>
+</aside>
+</section><section>
+<h3 id="explore-dockerfiles-of-some-of-the-official-images-available-in-docker-hub">Explore Dockerfiles of some of the official images available in docker hub</h3>
+<p><a href="https://hub.docker.com/search?q=&amp;type=image&amp;image_filter=store%2Cofficial">https://hub.docker.com/search?q=&amp;type=image&amp;image_filter=store%2Cofficial</a></p>
+</section><section>
+<h2 id="docker-compose">Docker Compose</h2>
+</section><section>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Compose is a tool for defining and running multi-container Docker applications
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  With Compose, you use a YAML file to configure your application’s services
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Then, with a single command, you create and start all the services from your configuration
+</span></li>
+</ul>
+</section><section>
+<h3 id="commands">Commands</h3>
+<p>docker-compose &lt;command&gt;</p>
+<pre><code class="language-go">  build              Build or rebuild services
+  config             Validate and view the Compose file
+  create             Create services
+  down               Stop and remove containers, networks, images, and volumes
+  exec               Execute a command in a running container
+  help               Get help on a command
+  images             List images
+  logs               View output from containers
+  ps                 List containers
+  restart            Restart services
+  rm                 Remove stopped containers
+  start              Start services
+  stop               Stop services
+  up                 Create and start containers
+  version            Show the Docker-Compose version information
+</code></pre>
+</section><section>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-go">version: &quot;3.7&quot;
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.19.0
+    container_name: prom
+    ports:
+      - &quot;9090:9090&quot;
+  grafana:
+    image: grafana/grafana:7.0.3
+    container_name: grafana
+    ports:
+      - &quot;3000:3000&quot;
+</code></pre>
+</section><section>
+<h3 id="lets-try-docker-compose">Let&rsquo;s try docker-compose</h3>
+<pre><code class="language-bash">cd to docker_k8s_training/docker-compose/monitoring
+docker-compose up
+</code></pre>
+<p>Load http://localhost:3000 and http://localhost:9090</p>
+<pre><code class="language-bash">cd to docker_k8s_training/docker-compose/consul_cluster
+docker-compose up
+</code></pre>
+<p>Load http://localhost:8500</p>
+</section><section>
+<h3 id="run-in-detached-modebackground">Run in detached mode/background</h3>
+<pre><code class="language-bash">docker-compose up -d
+</code></pre>
+</section><section>
+<h3 id="explore-docker-compose-commands">Explore docker-compose commands</h3>
+<pre><code class="language-bash">docker-compose ps
+docker-compose images
+docker-compose stop
+docker-compose rm
+</code></pre>
+</section><section>
+<h2 id="read-more">Read More</h2>
+<p><a href="https://docs.docker.com/compose/gettingstarted/">https://docs.docker.com/compose/gettingstarted/</a></p>
+</section><section>
+<h2 id="docker-image-layers-review">Docker Image Layers Review</h2>
+<ul>
+<li>Compare images docker history <a href="image:tag">image:tag</a></li>
+</ul>
+</section><section>
+<h2 id="read-more-1">Read More</h2>
+<p><a href="https://docs.docker.com/storage/storagedriver/">https://docs.docker.com/storage/storagedriver/</a></p>
+</section><section>
+<h2 id="clean-up-unused-containersimages">Clean Up Unused containers/images</h2>
+<pre><code class="language-bash">docker stop
+docker rm
+</code></pre>
+<pre><code class="language-bash">docker images
+docker rmi
+</code></pre>
+</section><section>
+<h3 id="list-all-exited-containers">List all exited containers</h3>
+<pre><code class="language-bash">docker ps -a -f status=exited
+</code></pre>
+<h3 id="remove-all-exited-containers">Remove all exited containers</h3>
+<pre><code class="language-bash">docker rm $(docker ps -a -f status=exited -q)
+</code></pre>
+</section><section>
+<h3 id="docker-images-cleanup">Docker Images Cleanup</h3>
+<ul>
+<li>
+<p>Docker images consist of multiple layers. Dangling images are layers that have no relationship to any tagged images</p>
+</li>
+<li>
+<p>They no longer serve a purpose and consume disk space</p>
+</li>
+<li>
+<p>If you build an image without tagging it, the image will appear on the list of dangling images</p>
+<pre><code class="language-bash">docker images -f dangling=true
+</code></pre>
+</li>
+<li>
+<p>When you’re sure you want to delete them</p>
+<pre><code class="language-bash">docker image prune
+</code></pre>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>
+<p>To remove specific image</p>
+<ul>
+<li>
+<p>You would require to first stop and remove container using the image before doing this</p>
+<pre><code class="language-bash">docker rmi &lt;image id/name:tag&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="read-more-2">Read More</h2>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes">https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes</a></p>
+</section><section>
+<h2 id="training-summary">Training Summary</h2>
+<ul>
+<li>
+<p>Why Docker?</p>
+</li>
+<li>
+<p>Docker concepts</p>
+</li>
+<li>
+<p>Docker commands</p>
+</li>
+<li>
+<p>Building docker applications and run it</p>
+</li>
+<li>
+<p>Using Docker compose</p>
+</li>
+</ul>
+</section><section>
+<h2 id="what-next">What Next?</h2>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Want to learn something new without the pain of installing and messing up your machine?
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  You know the answer how to solve that now 🤩
+</span>
+</li>
+</ul>
+</section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/presentations/reveal-hugo/object-assign.js></script>
+
+<a href="/presentations/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"highlight_theme":"github","templates":{"blue":{"background":"#a5e2fd","transition":"slide-in fade-out"},"yellow":{"background":"#f6f195","transition":"slide-in fade-out"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"margin":0.2,"theme":"night"}</script>
+
+<script src="/presentations/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    
+    
+  </body>
+</html>
