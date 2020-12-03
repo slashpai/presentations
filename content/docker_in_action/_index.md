@@ -580,10 +580,6 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
 ## Training Summary
 
-- Why Docker?
-
-- Docker concepts
-
 - Docker commands
 
 - Building docker applications and run it
@@ -599,3 +595,5 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 - {{% fragment %}}You know the answer how to solve that now 🤩 {{% /fragment %}}
 
 ---
+
+{{< slide content="common.thankyou" >}}
