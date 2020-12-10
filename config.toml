@@ -13,7 +13,7 @@ isHTML = true
 unsafe = true
 
 [markup.highlight]
-codeFences = false
+codeFences = true
 
 [params.reveal_hugo]
 highlight_theme = "github"
