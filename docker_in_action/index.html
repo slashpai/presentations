@@ -178,26 +178,24 @@
 </table>
 </section><section>
 <h2 id="command-help">Command Help</h2>
-<pre><code class="language-go">docker [command] --help
-</code></pre>
-<h3 id="example">Example</h3>
-<pre><code class="language-go">&gt; docker exec --help
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> [<span style="color:#a6e22e">command</span>] <span style="color:#f92672">--</span><span style="color:#a6e22e">help</span>
+</code></pre></div><h3 id="example">Example</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>&gt; <span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">exec</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">help</span>
 
-Usage:	docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+<span style="color:#a6e22e">Usage</span>:	<span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">exec</span> [<span style="color:#a6e22e">OPTIONS</span>] <span style="color:#a6e22e">CONTAINER</span> <span style="color:#a6e22e">COMMAND</span> [<span style="color:#a6e22e">ARG</span><span style="color:#f92672">...</span>]
 
-Run a command in a running container
+<span style="color:#a6e22e">Run</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">command</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">running</span> <span style="color:#a6e22e">container</span>
 
-Options:
-  -d, --detach               Detached mode: run command in the background
-      --detach-keys string   Override the key sequence for detaching a container
-  -e, --env list             Set environment variables
-  -i, --interactive          Keep STDIN open even if not attached
-      --privileged           Give extended privileges to the command
-  -t, --tty                  Allocate a pseudo-TTY
-  -u, --user string          Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;])
-  -w, --workdir string       Working directory inside the container
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">Options</span>:
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">detach</span>               <span style="color:#a6e22e">Detached</span> <span style="color:#a6e22e">mode</span>: <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">command</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">background</span>
+      <span style="color:#f92672">--</span><span style="color:#a6e22e">detach</span><span style="color:#f92672">-</span><span style="color:#a6e22e">keys</span> <span style="color:#66d9ef">string</span>   <span style="color:#a6e22e">Override</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">sequence</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">detaching</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">container</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">e</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">env</span> <span style="color:#a6e22e">list</span>             <span style="color:#a6e22e">Set</span> <span style="color:#a6e22e">environment</span> <span style="color:#a6e22e">variables</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">interactive</span>          <span style="color:#a6e22e">Keep</span> <span style="color:#a6e22e">STDIN</span> <span style="color:#a6e22e">open</span> <span style="color:#a6e22e">even</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">attached</span>
+      <span style="color:#f92672">--</span><span style="color:#a6e22e">privileged</span>           <span style="color:#a6e22e">Give</span> <span style="color:#a6e22e">extended</span> <span style="color:#a6e22e">privileges</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">command</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">tty</span>                  <span style="color:#a6e22e">Allocate</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">pseudo</span><span style="color:#f92672">-</span><span style="color:#a6e22e">TTY</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">user</span> <span style="color:#66d9ef">string</span>          <span style="color:#a6e22e">Username</span> <span style="color:#a6e22e">or</span> <span style="color:#a6e22e">UID</span> (<span style="color:#a6e22e">format</span>: &lt;<span style="color:#a6e22e">name</span>|<span style="color:#a6e22e">uid</span>&gt;[:&lt;<span style="color:#a6e22e">group</span>|<span style="color:#a6e22e">gid</span>&gt;])
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">w</span>, <span style="color:#f92672">--</span><span style="color:#a6e22e">workdir</span> <span style="color:#66d9ef">string</span>       <span style="color:#a6e22e">Working</span> <span style="color:#a6e22e">directory</span> <span style="color:#a6e22e">inside</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">container</span>
+</code></pre></div></section><section>
 <h2 id="more-commands">More commands</h2>
 <p><a href="https://docs.docker.com/engine/reference/commandline/docker/">https://docs.docker.com/engine/reference/commandline/docker/</a></p>
 </section><section>
@@ -211,9 +209,8 @@ Options:
 </ul>
 </section><section>
 <h2 id="docker-run-with-volumes">Docker run with volumes</h2>
-<pre><code class="language-go">docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
-</code></pre>
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">50000</span>:<span style="color:#ae81ff">50000</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">v</span> <span style="color:#a6e22e">jenkins_home</span>:<span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#f92672">/</span><span style="color:#a6e22e">jenkins_home</span> <span style="color:#a6e22e">jenkins</span><span style="color:#f92672">/</span><span style="color:#a6e22e">jenkins</span>:<span style="color:#a6e22e">lts</span>
+</code></pre></div><ul>
 <li>
 <p>This will store the workspace in /var/jenkins_home</p>
 </li>
@@ -226,9 +223,8 @@ Options:
 </ul>
 </section><section>
 <h2 id="view-docker-volume-created">View docker volume created</h2>
-<pre><code class="language-bash">docker volume ls
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker volume ls
+</code></pre></div></section><section>
 <h2 id="alpine-images">Alpine Images</h2>
 <ul>
 <li>
@@ -257,18 +253,16 @@ Options:
 <p>The size savings over ubuntu and other bases are huge:</p>
 </li>
 </ul>
-<pre><code class="language-bash">REPOSITORY  TAG     IMAGE ID      CREATED      SIZE
-alpine      latest  961769676411  4 weeks ago  5.58MB
-ubuntu      latest  2ca708c1c9cc  2 days ago   64.2MB
-debian      latest  c2c03a296d23  9 days ago   114MB
-centos      latest  67fa590cfc1c  4 weeks ago  202MB
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>REPOSITORY  TAG     IMAGE ID      CREATED      SIZE
+alpine      latest  <span style="color:#ae81ff">961769676411</span>  <span style="color:#ae81ff">4</span> weeks ago  5.58MB
+ubuntu      latest  2ca708c1c9cc  <span style="color:#ae81ff">2</span> days ago   64.2MB
+debian      latest  c2c03a296d23  <span style="color:#ae81ff">9</span> days ago   114MB
+centos      latest  67fa590cfc1c  <span style="color:#ae81ff">4</span> weeks ago  202MB
+</code></pre></div></section><section>
 <h3 id="alpine-based-images-vs-normal">Alpine based images vs normal</h3>
-<pre><code class="language-bash">ruby  2.6.6            39853018958e      13 days ago    840MB
-ruby  2.6.6-alpine     d86341b50737      5 weeks ago    49.8MB
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>ruby  2.6.6            39853018958e      <span style="color:#ae81ff">13</span> days ago    840MB
+ruby  2.6.6-alpine     d86341b50737      <span style="color:#ae81ff">5</span> weeks ago    49.8MB
+</code></pre></div></section><section>
 <h2 id="building-images">Building Images</h2>
 </section><section>
 <h2 id="dockerfile">Dockerfile</h2>
@@ -294,13 +288,12 @@ ruby  2.6.6-alpine     d86341b50737      5 weeks ago    49.8MB
 </ul>
 </section><section>
 <h2 id="example-1">Example</h2>
-<pre><code class="language-go">FROM ubuntu
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">ubuntu</span>
 
-RUN apt-get update
-RUN apt-get install –y nginx
-CMD [“echo”,”Image created”]
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">RUN</span> <span style="color:#a6e22e">apt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">get</span> <span style="color:#a6e22e">update</span>
+<span style="color:#a6e22e">RUN</span> <span style="color:#a6e22e">apt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">get</span> <span style="color:#a6e22e">install</span> <span style="color:#960050;background-color:#1e0010">–</span><span style="color:#a6e22e">y</span> <span style="color:#a6e22e">nginx</span>
+<span style="color:#a6e22e">CMD</span> [<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#a6e22e">echo</span><span style="color:#960050;background-color:#1e0010">”</span>,<span style="color:#960050;background-color:#1e0010">”</span><span style="color:#a6e22e">Image</span> <span style="color:#a6e22e">created</span><span style="color:#960050;background-color:#1e0010">”</span>]
+</code></pre></div></section><section>
 <h2 id="dockerfile-commands">Dockerfile Commands</h2>
 <table>
 <thead>
@@ -362,11 +355,10 @@ CMD [“echo”,”Image created”]
 </section><section>
 <h2 id="lets-build-images">Lets build images</h2>
 <h3 id="from-terminalgit-bash">From terminal/git bash</h3>
-<pre><code class="language-bash">git clone https://github.com/slashpai/docker_k8s_training.git
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>git clone https://github.com/slashpai/docker_k8s_training.git
 cd docker_k8s_training
 cd docker_apps
-</code></pre>
-</section><section>
+</code></pre></div></section><section>
 <h2 id="example-1-1">Example 1</h2>
 <h3 id="simple-webapp">Simple WebApp</h3>
 <p>cd simple_webapp</p>
@@ -422,23 +414,22 @@ cd docker_apps
 </ul>
 </section><section>
 <h2 id="understanding-dockerfile">Understanding Dockerfile</h2>
-<pre><code class="language-go">FROM ruby:2.6.6-alpine
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">ruby</span>:<span style="color:#ae81ff">2.6.6</span><span style="color:#f92672">-</span><span style="color:#a6e22e">alpine</span>
 
-WORKDIR /usr/src/app
+<span style="color:#a6e22e">WORKDIR</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">usr</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span><span style="color:#f92672">/</span><span style="color:#a6e22e">app</span>
 
-ENV APP_COLOR=&quot;pink&quot;
+<span style="color:#a6e22e">ENV</span> <span style="color:#a6e22e">APP_COLOR</span>=<span style="color:#e6db74">&#34;pink&#34;</span>
 
-COPY Gemfile ./
+<span style="color:#a6e22e">COPY</span> <span style="color:#a6e22e">Gemfile</span> .<span style="color:#f92672">/</span>
 
-RUN gem install bundler &amp;&amp; bundle install
+<span style="color:#a6e22e">RUN</span> <span style="color:#a6e22e">gem</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">bundler</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">bundle</span> <span style="color:#a6e22e">install</span>
 
-COPY . .
+<span style="color:#a6e22e">COPY</span> . .
 
-EXPOSE 4567
+<span style="color:#a6e22e">EXPOSE</span> <span style="color:#ae81ff">4567</span>
 
-CMD [ &quot;ruby&quot;, &quot;app.rb&quot; ]
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">CMD</span> [ <span style="color:#e6db74">&#34;ruby&#34;</span>, <span style="color:#e6db74">&#34;app.rb&#34;</span> ]
+</code></pre></div></section><section>
 <h2 id="example-2">Example 2</h2>
 <h3 id="ruby-calculator">Ruby Calculator</h3>
 <p>cd calculator</p>
@@ -514,15 +505,14 @@ CMD [ &quot;ruby&quot;, &quot;app.rb&quot; ]
 </ul>
 </section><section>
 <h2 id="understanding-dockerfile-1">Understanding Dockerfile</h2>
-<pre><code class="language-go">FROM ruby:2.6.6-alpine
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">ruby</span>:<span style="color:#ae81ff">2.6.6</span><span style="color:#f92672">-</span><span style="color:#a6e22e">alpine</span>
 
-WORKDIR /usr/src/app
+<span style="color:#a6e22e">WORKDIR</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">usr</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span><span style="color:#f92672">/</span><span style="color:#a6e22e">app</span>
 
-COPY . .
+<span style="color:#a6e22e">COPY</span> . .
 
-ENTRYPOINT [&quot;ruby&quot;, &quot;calculator.rb&quot;]
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;ruby&#34;</span>, <span style="color:#e6db74">&#34;calculator.rb&#34;</span>]
+</code></pre></div></section><section>
 <h2 id="dockerignore-file">.dockerignore file</h2>
 <ul>
 <li>
@@ -597,23 +587,22 @@ ENTRYPOINT [&quot;ruby&quot;, &quot;calculator.rb&quot;]
 </ul>
 </section><section>
 <h2 id="understanding-dockerfile-2">Understanding Dockerfile</h2>
-<pre><code class="language-go">FROM node:15.3.0-alpine3.10
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">node</span>:<span style="color:#ae81ff">15.3.0</span><span style="color:#f92672">-</span><span style="color:#a6e22e">alpine3</span><span style="color:#ae81ff">.10</span>
 
-# Create app directory
-WORKDIR /usr/src/app
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Create</span> <span style="color:#a6e22e">app</span> <span style="color:#a6e22e">directory</span>
+<span style="color:#a6e22e">WORKDIR</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">usr</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span><span style="color:#f92672">/</span><span style="color:#a6e22e">app</span>
 
-# Install app dependencies
-COPY package*.json ./
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Install</span> <span style="color:#a6e22e">app</span> <span style="color:#a6e22e">dependencies</span>
+<span style="color:#a6e22e">COPY</span> <span style="color:#f92672">package</span><span style="color:#f92672">*</span>.<span style="color:#a6e22e">json</span> .<span style="color:#f92672">/</span>
 
-RUN npm install
+<span style="color:#a6e22e">RUN</span> <span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">install</span>
 
-# Bundle app source
-COPY . .
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Bundle</span> <span style="color:#a6e22e">app</span> <span style="color:#a6e22e">source</span>
+<span style="color:#a6e22e">COPY</span> . .
 
-EXPOSE 3000
-CMD [ &quot;node&quot;, &quot;index.js&quot; ]
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">EXPOSE</span> <span style="color:#ae81ff">3000</span>
+<span style="color:#a6e22e">CMD</span> [ <span style="color:#e6db74">&#34;node&#34;</span>, <span style="color:#e6db74">&#34;index.js&#34;</span> ]
+</code></pre></div></section><section>
 <h3 id="cmd-vs-entrypoint">CMD vs ENTRYPOINT</h3>
 <ul>
 <li>
@@ -690,60 +679,54 @@ CMD [ &quot;node&quot;, &quot;index.js&quot; ]
 </section><section>
 <h3 id="commands">Commands</h3>
 <p>docker-compose &lt;command&gt;</p>
-<pre><code class="language-go">  build              Build or rebuild services
-  config             Validate and view the Compose file
-  create             Create services
-  down               Stop and remove containers, networks, images, and volumes
-  exec               Execute a command in a running container
-  help               Get help on a command
-  images             List images
-  logs               View output from containers
-  ps                 List containers
-  restart            Restart services
-  rm                 Remove stopped containers
-  start              Start services
-  stop               Stop services
-  up                 Create and start containers
-  version            Show the Docker-Compose version information
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>  <span style="color:#a6e22e">build</span>              <span style="color:#a6e22e">Build</span> <span style="color:#a6e22e">or</span> <span style="color:#a6e22e">rebuild</span> <span style="color:#a6e22e">services</span>
+  <span style="color:#a6e22e">config</span>             <span style="color:#a6e22e">Validate</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">view</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">Compose</span> <span style="color:#a6e22e">file</span>
+  <span style="color:#a6e22e">create</span>             <span style="color:#a6e22e">Create</span> <span style="color:#a6e22e">services</span>
+  <span style="color:#a6e22e">down</span>               <span style="color:#a6e22e">Stop</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">remove</span> <span style="color:#a6e22e">containers</span>, <span style="color:#a6e22e">networks</span>, <span style="color:#a6e22e">images</span>, <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">volumes</span>
+  <span style="color:#a6e22e">exec</span>               <span style="color:#a6e22e">Execute</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">command</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">running</span> <span style="color:#a6e22e">container</span>
+  <span style="color:#a6e22e">help</span>               <span style="color:#a6e22e">Get</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">on</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">command</span>
+  <span style="color:#a6e22e">images</span>             <span style="color:#a6e22e">List</span> <span style="color:#a6e22e">images</span>
+  <span style="color:#a6e22e">logs</span>               <span style="color:#a6e22e">View</span> <span style="color:#a6e22e">output</span> <span style="color:#a6e22e">from</span> <span style="color:#a6e22e">containers</span>
+  <span style="color:#a6e22e">ps</span>                 <span style="color:#a6e22e">List</span> <span style="color:#a6e22e">containers</span>
+  <span style="color:#a6e22e">restart</span>            <span style="color:#a6e22e">Restart</span> <span style="color:#a6e22e">services</span>
+  <span style="color:#a6e22e">rm</span>                 <span style="color:#a6e22e">Remove</span> <span style="color:#a6e22e">stopped</span> <span style="color:#a6e22e">containers</span>
+  <span style="color:#a6e22e">start</span>              <span style="color:#a6e22e">Start</span> <span style="color:#a6e22e">services</span>
+  <span style="color:#a6e22e">stop</span>               <span style="color:#a6e22e">Stop</span> <span style="color:#a6e22e">services</span>
+  <span style="color:#a6e22e">up</span>                 <span style="color:#a6e22e">Create</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">start</span> <span style="color:#a6e22e">containers</span>
+  <span style="color:#a6e22e">version</span>            <span style="color:#a6e22e">Show</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">Docker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">Compose</span> <span style="color:#a6e22e">version</span> <span style="color:#a6e22e">information</span>
+</code></pre></div></section><section>
 <h2 id="examples">Examples</h2>
-<pre><code class="language-go">version: &quot;3.7&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
 
-services:
-  prometheus:
-    image: prom/prometheus:v2.19.0
-    container_name: prom
-    ports:
-      - &quot;9090:9090&quot;
-  grafana:
-    image: grafana/grafana:7.0.3
-    container_name: grafana
-    ports:
-      - &quot;3000:3000&quot;
-</code></pre>
-</section><section>
+<span style="color:#a6e22e">services</span>:
+  <span style="color:#a6e22e">prometheus</span>:
+    <span style="color:#a6e22e">image</span>: <span style="color:#a6e22e">prom</span><span style="color:#f92672">/</span><span style="color:#a6e22e">prometheus</span>:<span style="color:#a6e22e">v2</span><span style="color:#ae81ff">.19.0</span>
+    <span style="color:#a6e22e">container_name</span>: <span style="color:#a6e22e">prom</span>
+    <span style="color:#a6e22e">ports</span>:
+      <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34;9090:9090&#34;</span>
+  <span style="color:#a6e22e">grafana</span>:
+    <span style="color:#a6e22e">image</span>: <span style="color:#a6e22e">grafana</span><span style="color:#f92672">/</span><span style="color:#a6e22e">grafana</span>:<span style="color:#ae81ff">7.0.3</span>
+    <span style="color:#a6e22e">container_name</span>: <span style="color:#a6e22e">grafana</span>
+    <span style="color:#a6e22e">ports</span>:
+      <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34;3000:3000&#34;</span>
+</code></pre></div></section><section>
 <h3 id="lets-try-docker-compose">Let&rsquo;s try docker-compose</h3>
-<pre><code class="language-bash">cd to docker_k8s_training/docker-compose/monitoring
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>cd to docker_k8s_training/docker-compose/monitoring
 docker-compose up
-</code></pre>
-<p>Load http://localhost:3000 and http://localhost:9090</p>
-<pre><code class="language-bash">cd to docker_k8s_training/docker-compose/consul_cluster
+</code></pre></div><p>Load http://localhost:3000 and http://localhost:9090</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>cd to docker_k8s_training/docker-compose/consul_cluster
 docker-compose up
-</code></pre>
-<p>Load http://localhost:8500</p>
+</code></pre></div><p>Load http://localhost:8500</p>
 </section><section>
 <h3 id="run-in-detached-modebackground">Run in detached mode/background</h3>
-<pre><code class="language-bash">docker-compose up -d
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker-compose up -d
+</code></pre></div></section><section>
 <h3 id="explore-docker-compose-commands">Explore docker-compose commands</h3>
-<pre><code class="language-bash">docker-compose ps
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker-compose ps
 docker-compose images
 docker-compose stop
 docker-compose rm
-</code></pre>
-</section><section>
+</code></pre></div></section><section>
 <h2 id="read-more">Read More</h2>
 <p><a href="https://docs.docker.com/compose/gettingstarted/">https://docs.docker.com/compose/gettingstarted/</a></p>
 </section><section>
@@ -756,20 +739,16 @@ docker-compose rm
 <p><a href="https://docs.docker.com/storage/storagedriver/">https://docs.docker.com/storage/storagedriver/</a></p>
 </section><section>
 <h2 id="clean-up-unused-containersimages">Clean Up Unused containers/images</h2>
-<pre><code class="language-bash">docker stop
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker stop
 docker rm
-</code></pre>
-<pre><code class="language-bash">docker images
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker images
 docker rmi
-</code></pre>
-</section><section>
+</code></pre></div></section><section>
 <h3 id="list-all-exited-containers">List all exited containers</h3>
-<pre><code class="language-bash">docker ps -a -f status=exited
-</code></pre>
-<h3 id="remove-all-exited-containers">Remove all exited containers</h3>
-<pre><code class="language-bash">docker rm $(docker ps -a -f status=exited -q)
-</code></pre>
-</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker ps -a -f status<span style="color:#f92672">=</span>exited
+</code></pre></div><h3 id="remove-all-exited-containers">Remove all exited containers</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker rm <span style="color:#66d9ef">$(</span>docker ps -a -f status<span style="color:#f92672">=</span>exited -q<span style="color:#66d9ef">)</span>
+</code></pre></div></section><section>
 <h3 id="docker-images-cleanup">Docker Images Cleanup</h3>
 <ul>
 <li>
@@ -780,14 +759,12 @@ docker rmi
 </li>
 <li>
 <p>If you build an image without tagging it, the image will appear on the list of dangling images</p>
-<pre><code class="language-bash">docker images -f dangling=true
-</code></pre>
-</li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker images -f dangling<span style="color:#f92672">=</span>true
+</code></pre></div></li>
 <li>
 <p>When you’re sure you want to delete them</p>
-<pre><code class="language-bash">docker image prune
-</code></pre>
-</li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker image prune
+</code></pre></div></li>
 </ul>
 </section><section>
 <ul>
@@ -796,9 +773,8 @@ docker rmi
 <ul>
 <li>
 <p>You would require to first stop and remove container using the image before doing this</p>
-<pre><code class="language-bash">docker rmi &lt;image id/name:tag&gt;
-</code></pre>
-</li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>docker rmi &lt;image id/name:tag&gt;
+</code></pre></div></li>
 </ul>
 </li>
 </ul>

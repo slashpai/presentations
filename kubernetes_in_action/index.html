@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Kubernetes in Action</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/presentations/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/presentations/reveal-js/css/reveal.css"><link rel="stylesheet" href="/presentations/reveal-js/css/theme/night.css" id="theme">
+<link rel="stylesheet" href="/presentations/highlight-js/github.min.css">
+    
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="kubernetes-in-action">Kubernetes in Action</h2>
+<p>Let&rsquo;s learn kubernetes by handson</p>
+</section><section>
+<h2 id="lets-get-to-know-kubernetes-more-by-executing-cli-commands">Let&rsquo;s get to know kubernetes more by executing cli commands</h2>
+</section><section>
+<h2 id="kubectl">kubectl</h2>
+<ul>
+<li>
+<p>The Kubernetes command-line tool, kubectl, allows you to run commands against Kubernetes clusters</p>
+</li>
+<li>
+<p>You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs etc</p>
+</li>
+</ul>
+</section><section>
+<h2 id="install-kubectl">Install kubectl</h2>
+<p><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">https://kubernetes.io/docs/tasks/tools/install-kubectl/</a></p>
+</section><section>
+<h2 id="verify-installation">Verify Installation</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">version</span>
+</code></pre></div></section><section>
+<h2 id="minikube">Minikube</h2>
+</section><section>
+<h2 id="minikube-1">Minikube</h2>
+<ul>
+<li>minikube quickly sets up a local Kubernetes cluster on macOS, Linux, and Windows</li>
+</ul>
+</section><section>
+<p>Install: <a href="https://minikube.sigs.k8s.io/docs/start/">https://minikube.sigs.k8s.io/docs/start/</a></p>
+</section><section>
+<h2 id="create-minikube-cluster">Create minikube cluster</h2>
+</section><section>
+<h2 id="drivers">Drivers</h2>
+<p><strong>Linux</strong></p>
+<ul>
+<li>Docker - container-based (preferred)</li>
+<li>KVM2 - VM-based (preferred)</li>
+<li>VirtualBox - VM</li>
+<li>None - bare-metal</li>
+<li>Podman - container (experimental)</li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul>
+<li>Hyper-V - VM (preferred)</li>
+<li>Docker - VM + Container (preferred)</li>
+<li>VirtualBox - VM</li>
+</ul>
+<p>Drivers: <a href="https://minikube.sigs.k8s.io/docs/drivers/">https://minikube.sigs.k8s.io/docs/drivers/</a></p>
+</section><section>
+<h2 id="docker-as-driver">Docker as driver</h2>
+<p><em>This should be default one</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">start</span>
+</code></pre></div><p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">driver</span>=<span style="color:#a6e22e">docker</span>
+</code></pre></div></section><section>
+<h2 id="lets-review-the-cluster-created-with-kubectl-commands">Let&rsquo;s review the cluster created with kubectl commands</h2>
+</section><section>
+<h3 id="kubectl-context-and-configuration">Kubectl context and configuration</h3>
+<ul>
+<li>Set which Kubernetes cluster kubectl communicates with and modifies configuration information</li>
+</ul>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl config view</td>
+<td>Show Merged kubeconfig settings</td>
+<td>kubectl config view</td>
+</tr>
+<tr>
+<td>kubectl config get-contexts</td>
+<td>display list of contexts</td>
+<td>kubectl config get-contexts</td>
+</tr>
+<tr>
+<td>kubectl config current-context</td>
+<td>display the current-context</td>
+<td>kubectl config current-context</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl config use-context my-cluster-name</td>
+<td>set the default context to my-cluster-name</td>
+<td>kubectl config use-context minikube</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="viewing-finding-objects-resources">Viewing, Finding objects, resources</h2>
+</section><section>
+<p><em>Specify -n &lt;namespace&gt; if object is not in default namespace</em></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl get pods/po/pod</td>
+<td>List all pods in default namespace</td>
+<td>kubectl get pods</td>
+</tr>
+<tr>
+<td>kubectl get pods -A</td>
+<td>List all pods in all namespaces</td>
+<td>kubectl get pods -A</td>
+</tr>
+<tr>
+<td>kubectl get pods &ndash;show-labels</td>
+<td>Show labels for all pods</td>
+<td><code>kubectl get pods --show-labels</code></td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl describe</td>
+<td>Describe object</td>
+<td>kubectl describe pod &lt;pod name&gt;</td>
+</tr>
+<tr>
+<td>kubectl get deploy/deployments</td>
+<td>List deployments</td>
+<td>kubectl get deploy</td>
+</tr>
+<tr>
+<td>kubectl get rs</td>
+<td>List replicaset</td>
+<td>kubectl get rs</td>
+</tr>
+<tr>
+<td>kubectl get nodes/no</td>
+<td>List all nodes in cluster</td>
+<td>kubectl get nodes</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl get all -A</td>
+<td>List all objects in all namespaces</td>
+<td>kubectl get all -A</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="kubernetes-manifest-file-main-components-for-most-objects">Kubernetes manifest file main components for most objects</h2>
+</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#ae81ff">apiVersion</span>
+<span style="color:#ae81ff">kind</span>
+<span style="color:#ae81ff">metadata</span>
+    <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">name</span>:
+<span style="color:#ae81ff">spec</span>
+</code></pre></div></section><section>
+<h2 id="creating-objects">Creating objects</h2>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl run</td>
+<td>Create and run a particular image in a pod</td>
+<td><code>kubectl run nginx --image nginx</code></td>
+</tr>
+<tr>
+<td>kubectl create</td>
+<td>Create a resource from a file or from stdin</td>
+<td><code>kubectl create deployment nginx-deploy --image=nginx</code></td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl apply</td>
+<td>Apply a configuration to a resource by filename or stdin</td>
+<td>kubectl apply -f &lt;manifest.yaml/manifest.json/folder path&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="create-pods">Create Pods</h2>
+</section><section>
+<h3 id="dry-run">Dry run</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/redis-pod.yaml --dry-run=client
+</span></code></pre></div><p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">redis</span><span style="color:#f92672">-</span><span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">yaml</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">dry</span><span style="color:#f92672">-</span><span style="color:#a6e22e">run</span>=<span style="color:#a6e22e">client</span>
+</code></pre></div><h3 id="actual-run">Actual run</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/redis-pod.yaml
+</span></code></pre></div><p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">redis</span><span style="color:#f92672">-</span><span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<h2 id="creating-deployments">Creating Deployments</h2>
+</section><section>
+<h3 id="dry-run-1">Dry run</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/redis-deploy.yaml --dry-run=client
+</span></code></pre></div><p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">redis</span><span style="color:#f92672">-</span><span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">yaml</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">dry</span><span style="color:#f92672">-</span><span style="color:#a6e22e">run</span>=<span style="color:#a6e22e">client</span>
+</code></pre></div><h3 id="actual-run-1">Actual run</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/redis-deploy.yaml
+</span></code></pre></div><p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">redis</span><span style="color:#f92672">-</span><span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<h2 id="understanding-the-manifest-files">Understanding the manifest files</h2>
+</section><section>
+<h2 id="pod">Pod</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">redis</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis   </span>
+</code></pre></div></section><section>
+<h2 id="deployment">Deployment</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">redis</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">redis</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">redis</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+</code></pre></div></section><section>
+<h2 id="interacting-with-running-pods">Interacting with running Pods</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl exec</td>
+<td>Run a command in a running container</td>
+<td><code>kubectl exec -it nginx -- bash</code></td>
+</tr>
+<tr>
+<td>kubectl logs</td>
+<td>Fetch the logs of a pod</td>
+<td>kubectl logs &lt;pod name&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="scaling-resources">Scaling resources</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl scale</td>
+<td>Scale resources</td>
+<td><code>kubectl scale deployment redis --replicas=2</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em> This won&rsquo;t be updating manifest file so if you delete and create resource it will create whatever replicas mentioned in file</p>
+</section><section>
+<h2 id="specifying-resource-constraints-for-containers-in-pods">Specifying resource constraints for containers in pods</h2>
+</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1s</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">counter</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">count</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+    <span style="color:#f92672">args</span>: [<span style="color:#ae81ff">/bin/sh, -c,</span>
+            <span style="color:#e6db74">&#39;i=0; while true; do echo &#34;$i: $(date)&#34;; i=$((i+1)); sleep 1; done&#39;</span>]
+    <span style="color:#f92672">resources</span>:
+      <span style="color:#f92672">requests</span>:
+        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;64Mi&#34;</span>
+        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;250m&#34;</span>
+      <span style="color:#f92672">limits</span>:
+        <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;128Mi&#34;</span>
+        <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;500m&#34;</span>
+</code></pre></div></section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/busy-box-pod.yaml
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">pods</span>
+</code></pre></div></section><section>
+<h2 id="deleting-resources">Deleting Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kubectl delete</td>
+<td>Delete resources</td>
+<td>kubectl delete deployment redis</td>
+</tr>
+<tr>
+<td>kubectl delete</td>
+<td>Delete resources</td>
+<td>kubectl delete -f &lt;manifest file used to create resource&gt;</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="creating-manifest-file-quickly">Creating manifest file quickly</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">create</span> <span style="color:#a6e22e">deployment</span> <span style="color:#a6e22e">nginx</span><span style="color:#f92672">-</span><span style="color:#a6e22e">deployment</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">image</span> <span style="color:#a6e22e">nginx</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">dry</span><span style="color:#f92672">-</span><span style="color:#a6e22e">run</span>=<span style="color:#a6e22e">client</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">yaml</span> &gt; <span style="color:#a6e22e">nginx</span><span style="color:#f92672">-</span><span style="color:#a6e22e">deploy</span>.<span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<h2 id="command-help">Command Help</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> [<span style="color:#a6e22e">command</span>] <span style="color:#f92672">--</span><span style="color:#a6e22e">help</span>
+</code></pre></div></section><section>
+<p>kubectl cheatsheet: <a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">https://kubernetes.io/docs/reference/kubectl/cheatsheet/</a></p>
+</section><section>
+<p>kubectl book: <a href="https://kubectl.docs.kubernetes.io/">https://kubectl.docs.kubernetes.io/</a></p>
+</section><section>
+<h2 id="deploying-a-custom-application">Deploying a custom application</h2>
+</section><section>
+<h2 id="simple-webappv1">simple-webapp:v1</h2>
+<ul>
+<li>
+<p>This image was created during docker session</p>
+</li>
+<li>
+<p>To verify if image present on system</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">images</span>
+</code></pre></div></li>
+</ul>
+</section><section>
+<p>For those who don&rsquo;t have this image</p>
+<p>From git bash/linux terminal</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>git clone https://github.com/slashpai/docker_k8s_training.git
+cd docker_k8s_training/docker_apps/simple_webapp
+docker build . -t simple-webapp:v1
+</code></pre></div></section><section>
+<h2 id="create-deployment-from-this-image">Create deployment from this image</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">create</span> <span style="color:#a6e22e">deployment</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">image</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>:<span style="color:#a6e22e">v1</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">deployments</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">pods</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">describe</span> <span style="color:#a6e22e">deploy</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>
+</code></pre></div></section><section>
+<h2 id="identified-reason-for-failure">Identified reason for failure?</h2>
+</section><section>
+<p>Login to minikube node</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>minikube ssh
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">images</span>
+</code></pre></div><p>Type <code>exit</code> to quit from minikube</p>
+</section><section>
+<h3 id="pushing-directly-to-the-in-cluster-docker-daemon">Pushing directly to the in-cluster Docker daemon</h3>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  When using a container or VM driver (all drivers except none), you can reuse the Docker daemon inside minikube cluster
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  This means you don’t have to build on your host machine and push the image into a docker registry
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  You can just build inside the same docker daemon as minikube which speeds up local experiments
+</span>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>To point your terminal to use the docker daemon inside minikube run this:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>eval <span style="color:#66d9ef">$(</span>minikube docker-env<span style="color:#66d9ef">)</span>
+</code></pre></div></section><section>
+<ul>
+<li>
+<p>Now any ‘docker’ command you run in this current terminal will run against the docker inside minikube cluster</p>
+</li>
+<li>
+<p>If you do the following commands, it will show you the containers inside the minikube, inside minikube’s VM or Container</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">ps</span>
+</code></pre></div></section><section>
+<ul>
+<li>Now you can ‘build’ against the docker inside minikube. which is instantly accessible to kubernetes cluster</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">build</span> . <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>:<span style="color:#a6e22e">v1</span>
+</code></pre></div></section><section>
+<h2 id="verify-pod-status-now">Verify pod status now</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">pods</span>
+</code></pre></div></section><section>
+<h2 id="another-way-without-using-minikube-docker-daemon">Another way without using minikube docker daemon</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">cache</span> <span style="color:#a6e22e">add</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>:<span style="color:#a6e22e">v1</span>
+</code></pre></div><p><a href="https://minikube.sigs.k8s.io/docs/commands/cache/">https://minikube.sigs.k8s.io/docs/commands/cache/</a></p>
+</section><section>
+<p><a href="https://minikube.sigs.k8s.io/docs/handbook/pushing/">https://minikube.sigs.k8s.io/docs/handbook/pushing/</a></p>
+</section><section>
+<h2 id="expose-the-application-to-outside-cluster">Expose the application to outside cluster</h2>
+<p><em>You are creating a service here with below command</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">expose</span> <span style="color:#a6e22e">deployment</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span> <span style="color:#f92672">--</span><span style="color:#66d9ef">type</span>=<span style="color:#a6e22e">NodePort</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">port</span>=<span style="color:#ae81ff">4567</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">services</span><span style="color:#f92672">/</span><span style="color:#a6e22e">svc</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>
+</code></pre></div></section><section>
+<h2 id="update-code-and-build-new-image">Update code and build new image</h2>
+</section><section>
+<ul>
+<li>
+<p>Try updating the simple web app (index.erb in views folder)</p>
+</li>
+<li>
+<p>Build new image use a different tag</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">build</span> . <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>:<span style="color:#a6e22e">v2</span>
+</code></pre></div></li>
+<li>
+<p>Try setting new image for deployment</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">set</span> <span style="color:#a6e22e">image</span> <span style="color:#a6e22e">deploy</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>=<span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>:<span style="color:#a6e22e">v2</span>
+</code></pre></div></li>
+<li>
+<p>Run and verify change</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span>
+</code></pre></div></section><section>
+<h2 id="using-env-variables">Using env variables</h2>
+</section><section>
+<p><a href="https://github.com/slashpai/docker_k8s_training/blob/main/kubernetes/manifests/simple-webapp-env.yml">https://github.com/slashpai/docker_k8s_training/blob/main/kubernetes/manifests/simple-webapp-env.yml</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/simple-webapp-env.yml
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">expose</span> <span style="color:#a6e22e">deploy</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">env</span> <span style="color:#f92672">--</span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NodePort</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">port</span> <span style="color:#ae81ff">4567</span>
+<span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">env</span>
+</code></pre></div>
+
+
+<aside class="notes"><p>kubectl create deployment simple-webapp-env &ndash;image simple-webapp:v1 &ndash;dry-run=client -o yaml</p>
+</aside>
+</section><section>
+<h2 id="another-way-to-create-service">Another way to create service</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">create</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">nodeport</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">tcp</span> <span style="color:#ae81ff">4567</span>:<span style="color:#ae81ff">4567</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">dry</span><span style="color:#f92672">-</span><span style="color:#a6e22e">run</span>=<span style="color:#a6e22e">client</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<h2 id="using-config-maps-to-pass-env-variables">Using config maps to pass env variables</h2>
+</section><section>
+<h2 id="creating-config-map">Creating config map</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">create</span> <span style="color:#a6e22e">configmap</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cm</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">from</span><span style="color:#f92672">-</span><span style="color:#a6e22e">literal</span> <span style="color:#a6e22e">APP_COLOR</span>=<span style="color:#a6e22e">blue</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">configmap</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cm</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">configmap</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cm</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<p><a href="https://github.com/slashpai/docker_k8s_training/blob/main/kubernetes/manifests/simple-webapp-configmap.yml">https://github.com/slashpai/docker_k8s_training/blob/main/kubernetes/manifests/simple-webapp-configmap.yml</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">https</span>:<span style="color:#75715e">//raw.githubusercontent.com/slashpai/docker_k8s_training/main/kubernetes/manifests/simple-webapp-configmap.yml
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">expose</span> <span style="color:#a6e22e">deploy</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cm</span> <span style="color:#f92672">--</span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NodePort</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">port</span> <span style="color:#ae81ff">4567</span>
+<span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">simple</span><span style="color:#f92672">-</span><span style="color:#a6e22e">webapp</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cm</span>
+</code></pre></div></section><section>
+<h2 id="addons">Addons</h2>
+<p>Add-ons extend the functionality of Kubernetes.</p>
+<p><a href="https://kubernetes.io/docs/concepts/cluster-administration/addons/">https://kubernetes.io/docs/concepts/cluster-administration/addons/</a></p>
+</section><section>
+<h2 id="minikube-addons">minikube addons</h2>
+<ul>
+<li>The minikube tool includes a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">addons</span> <span style="color:#a6e22e">list</span>
+</code></pre></div></section><section>
+<h3 id="access-the-kubernetes-dashboard-running-within-the-minikube-cluster">Access the Kubernetes dashboard running within the minikube cluster</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">mknikube</span> <span style="color:#a6e22e">dashboard</span>
+</code></pre></div></section><section>
+<h2 id="metrics-server">Metrics server</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">minikube</span> <span style="color:#a6e22e">addons</span> <span style="color:#a6e22e">enable</span> <span style="color:#a6e22e">metrics</span><span style="color:#f92672">-</span><span style="color:#a6e22e">server</span>
+</code></pre></div><p>Wait some time till metrics pods are functional</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">top</span> <span style="color:#a6e22e">nodes</span>
+<span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">top</span> <span style="color:#a6e22e">pods</span>
+</code></pre></div></section><section>
+<p><a href="https://minikube.sigs.k8s.io/docs/commands/">https://minikube.sigs.k8s.io/docs/commands/</a></p>
+</section><section>
+<p>More details: <a href="https://minikube.sigs.k8s.io/docs/">https://minikube.sigs.k8s.io/docs/</a></p>
+</section><section>
+<h2 id="kubernetes-object-management">Kubernetes Object Management</h2>
+<ul>
+<li>
+<p>Imperative vs Declarative method</p>
+</li>
+<li>
+<p>kubectl create vs kubectl apply</p>
+</li>
+</ul>
+</section><section>
+<h2 id="imperative-commands">Imperative commands</h2>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  When using imperative commands, a user operates directly on live objects in a cluster
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  The user provides operations to the kubectl command as arguments or flags
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Simplest way to get started or to run a one-off task in a cluster
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Because this technique operates directly on live objects, it provides no history of previous configurations
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="example">Example</h2>
+<p>kubectl create deployment nginx-deploy &ndash;image nginx</p>
+</section><section>
+<h3 id="advantages-compared-to-object-configuration">Advantages compared to object configuration:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Commands are simple, easy to learn and easy to remember
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Commands require only a single step to make changes to the cluster
+</span></li>
+</ul>
+</section><section>
+<h3 id="disadvantages-compared-to-object-configuration">Disadvantages compared to object configuration:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Commands do not integrate with change review processes
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Commands do not provide an audit trail associated with changes
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Commands do not provide a source of records except for what is live
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Commands do not provide a template for creating new objects
+</span></li>
+</ul>
+</section><section>
+<h2 id="imperative-object-configuration">Imperative object configuration</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  In imperative object configuration, the kubectl command specifies the operation (create, replace, etc.), optional flags and at least one file name
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  The file specified must contain a full definition of the object in YAML or JSON format
+</span></li>
+</ul>
+</section><section>
+<h2 id="examples">Examples</h2>
+<p>Create the objects defined in a configuration file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">create</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">nginx</span>.<span style="color:#a6e22e">yaml</span>
+</code></pre></div></section><section>
+<h3 id="advantages-compared-to-imperative-commands">Advantages compared to imperative commands:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Object configuration can be stored in a source control system such as Git
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Object configuration can integrate with processes such as reviewing changes before push and audit trails
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Object configuration provides a template for creating new objects
+</span></li>
+</ul>
+</section><section>
+<h3 id="disadvantages-compared-to-imperative-commands">Disadvantages compared to imperative commands:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Object configuration requires basic understanding of the object schema
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Object configuration requires the additional step of writing a YAML file
+</span></li>
+</ul>
+</section><section>
+<h3 id="disadvantages-compared-to-declarative-object-configuration">Disadvantages compared to declarative object configuration:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Imperative object configuration works best on files, not directories
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement
+</span></li>
+</ul>
+</section><section>
+<h2 id="declarative-object-configuration">Declarative object configuration</h2>
+</section><section>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  User operates on object configuration files stored locally, however the user does not define the operations to be taken on the files
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Create, update, and delete operations are automatically detected per-object by kubectl
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  This enables working on directories, where different operations might be needed for different objects
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="kubectl-apply">kubectl apply</h2>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  kubectl apply manages applications through files defining Kubernetes resources
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  It creates and updates resources in a cluster through running kubectl apply
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  This is the recommended way of managing Kubernetes applications on production
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="example-1">Example</h2>
+<ul>
+<li>
+<p>Process all object configuration files in the configs directory, and create or patch the live objects</p>
+</li>
+<li>
+<p>You can first diff to see what changes are going to be made, and then apply</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">diff</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">configs</span><span style="color:#f92672">/</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">kubectl</span> <span style="color:#a6e22e">apply</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">f</span> <span style="color:#a6e22e">configs</span><span style="color:#f92672">/</span>
+</code></pre></div></section><section>
+<h3 id="advantages-compared-to-imperative-object-configuration">Advantages compared to imperative object configuration:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Changes made directly to live objects are retained, even if they are not merged back into the configuration files
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Declarative object configuration has better support for operating on directories and automatically detecting operation types (create, patch, delete) per-object
+</span></li>
+</ul>
+</section><section>
+<h3 id="disadvantages-compared-to-imperative-object-configuration">Disadvantages compared to imperative object configuration:</h3>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Harder to debug and understand results when they are unexpected
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Partial updates using diffs create complex merge and patch operations
+</span></li>
+</ul>
+</section><section>
+<p>Read More: <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/object-management/">https://kubernetes.io/docs/concepts/overview/working-with-objects/object-management/</a></p>
+</section><section>
+<h2 id="more-kubectl-commands-handson">More kubectl commands handson</h2>
+</section><section>
+<h2 id="some-fun-application-deployment-for-you">Some fun application deployment for you</h2>
+</section><section>
+<h2 id="try-deploying-voting-app">Try deploying voting app</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>git clone https://github.com/dockersamples/example-voting-app.gits
+</code></pre></div><p><a href="https://github.com/dockersamples/example-voting-app#run-the-app-in-kubernetes">https://github.com/dockersamples/example-voting-app#run-the-app-in-kubernetes</a></p>
+</section><section>
+<h2 id="training-summary">Training Summary</h2>
+<ul>
+<li>
+<p>Kubernetes commands with Handson</p>
+</li>
+<li>
+<p>Deploying custom application</p>
+</li>
+<li>
+<p>Minikube features and familiarization</p>
+</li>
+</ul>
+</section><section>
+<h2 id="what-next">What Next?</h2>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Best place to learn further <a href="https://kubernetes.io/docs/home/">https://kubernetes.io/docs/home/</a>
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  <a href="https://www.katacoda.com/learn?q=kubernetes&amp;hPP=12&amp;idx=scenarios&amp;p=0&amp;is_v=1">https://www.katacoda.com/learn?q=kubernetes&amp;hPP=12&amp;idx=scenarios&amp;p=0&amp;is_v=1</a>
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  <a href="https://github.com/kelseyhightower/kubernetes-the-hard-way">https://github.com/kelseyhightower/kubernetes-the-hard-way</a>
+</span>
+</li>
+</ul>
+</section>
+
+  
+<section data-noprocess data-shortcode-slide>
+  <h1 id="thank-you">Thank you!</h1>
+</section>
+<section data-noprocess data-shortcode-slide>
+  
+<h1 id="any-questions">Any questions?</h1>
+
+</section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/presentations/reveal-hugo/object-assign.js></script>
+
+<a href="/presentations/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"highlight_theme":"github","templates":{"blue":{"background":"#a5e2fd","transition":"slide-in fade-out"},"yellow":{"background":"#f6f195","transition":"slide-in fade-out"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"margin":0.2,"theme":"night"}</script>
+
+<script src="/presentations/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    
+    
+  </body>
+</html>
