@@ -203,8 +203,8 @@ CMD [“echo”,”Image created”]
 
 | Command | Description |
 | --- | ----------- |
-| FROM | Specify base image|
-| RUN | List containers|
+| FROM | specify base image|
+| RUN | execute commands|
 | ENTRYPOINT | to configure a container that will run as an executable|
 | CMD | provide defaults for an executing container |
 | COPY| copies new files or directories |
