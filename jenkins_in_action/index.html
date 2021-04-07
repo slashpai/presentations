@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Jenkins in Action</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/presentations/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/presentations/reveal-js/css/reveal.css"><link rel="stylesheet" href="/presentations/reveal-js/css/theme/league.css" id="theme">
+<link rel="stylesheet" href="/presentations/highlight-js/github.min.css">
+    
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="jenkins-in-action">Jenkins in Action</h2>
+<p>Let&rsquo;s learn Jenkins with handson</p>
+</section><section>
+<h2 id="agenda">Agenda</h2>
+<ul>
+<li>
+<p>Why Jenkins?</p>
+</li>
+<li>
+<p>Jenkins Plugins</p>
+</li>
+<li>
+<p>Jenkins Pipelines</p>
+</li>
+<li>
+<p>Managing Jenkins</p>
+</li>
+</ul>
+</section><section>
+<h2 id="what-is-jenkins">What is Jenkins?</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Self-contained, open source automation server which can be used to automate all sorts of tasks related to building, testing, and delivering or deploying software
+</span></li>
+</ul>
+</section><section>
+<h2 id="install-and-configure-jenkins">Install and Configure Jenkins</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Jenkins can be installed through native system packages, Docker, or even run standalone by any machine with a Java Runtime Environment (JRE) installed
+</span></li>
+</ul>
+</section><section>
+<h2 id="using-docker">Using docker</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape> <span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">privileged</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span>  <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">50000</span>:<span style="color:#ae81ff">50000</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">v</span> <span style="color:#a6e22e">jenkins_home</span>:<span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#f92672">/</span><span style="color:#a6e22e">jenkins_home</span>  <span style="color:#f92672">-</span><span style="color:#a6e22e">v</span> <span style="color:#960050;background-color:#1e0010">$</span>(<span style="color:#a6e22e">which</span> <span style="color:#a6e22e">docker</span>):<span style="color:#f92672">/</span><span style="color:#a6e22e">usr</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">/</span><span style="color:#a6e22e">docker</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">v</span> <span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#f92672">/</span><span style="color:#a6e22e">run</span><span style="color:#f92672">/</span><span style="color:#a6e22e">docker</span>.<span style="color:#a6e22e">sock</span>:<span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#f92672">/</span><span style="color:#a6e22e">run</span><span style="color:#f92672">/</span><span style="color:#a6e22e">docker</span>.<span style="color:#a6e22e">sock</span> <span style="color:#a6e22e">jenkins</span><span style="color:#f92672">/</span><span style="color:#a6e22e">jenkins</span>:<span style="color:#a6e22e">lts</span>
+</code></pre></div><ul>
+<li>Note extra volumes added for docker to use host docker daemon this is done for the sake of demo, in production it will run on agents on which docker is installed</li>
+</ul>
+</section><section>
+<p>Go to http://localhost:8080</p>
+</section><section>
+<h2 id="lets-explore-jenkins-environment">Let&rsquo;s explore Jenkins environment</h2>
+</section><section>
+<h2 id="plugins">Plugins</h2>
+</section><section>
+<ul>
+<li>Pipeline Plugins</li>
+<li>Docker, Docker Pipeline</li>
+<li>BlueOcean</li>
+<li>lot more</li>
+</ul>
+</section><section>
+<h2 id="jenkins-agents">Jenkins Agents</h2>
+</section><section>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Jenkins architecture is designed for distributed build environments
+</span>
+
+
+
+<aside class="notes">Allows to use different environments for each build project balancing the workload among multiple agents running jobs in parallel</aside></li>
+</ul>
+</section><section>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Jenkins controller administers the Jenkins agents and orchestrates their work, including scheduling jobs on agents and monitoring agents
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Agents may be connected to the Jenkins controller using either local or cloud computers
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Jenkins agents can be launched in physical machines, virtual machines, Kubernetes clusters, and with Docker images
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="sample-job-run">Sample Job Run</h2>
+</section><section>
+<h2 id="jenkins-pipeline">Jenkins Pipeline</h2>
+</section><section>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  Jenkins Pipeline is a suite of plugins which supports implementing and integrating continuous delivery pipelines into Jenkins
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Pipeline provides an extensible set of tools for modeling simple-to-complex delivery pipelines &ldquo;as code&rdquo; via the Pipeline DSL syntax
+</span></li>
+</ul>
+</section><section>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Jenkins Pipeline definition is written into a text file (called a Jenkinsfile) which in turn can be committed to a project’s source control repository
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Foundation of &ldquo;Pipeline-as-code&rdquo;; treating the CD pipeline a part of the application to be versioned and reviewed like any other code
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="jenkinsfile-benefits">Jenkinsfile Benefits</h2>
+</section><section>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  Automatically creates a Pipeline build process for all branches and pull requests
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Code review/iteration on the Pipeline (along with the remaining source code)
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Audit trail for the Pipeline
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Single source of truth for the Pipeline, which can be viewed and edited by multiple members of the project
+</span>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  While the syntax for defining a Pipeline, either in the web UI or with a Jenkinsfile is the same, it is generally considered best practice to define the Pipeline in a Jenkinsfile and check that in to source control
+</span></li>
+</ul>
+</section><section>
+<h2 id="declarative-versus-scripted-pipeline">Declarative versus Scripted Pipeline</h2>
+</section><section>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  A Jenkinsfile can be written using two types of syntax - Declarative and Scripted
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Declarative and Scripted Pipelines are constructed fundamentally differently
+</span>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>
+<p>Declarative Pipeline</p>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Declarative Pipeline is a more recent feature of Jenkins Pipeline which:
+</span>
+<ul>
+<li>
+
+
+<span class='fragment '
+  >
+  provides richer syntactical features over Scripted Pipeline syntax, and
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  is designed to make writing and reading Pipeline code easier
+</span>
+</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>
+<p>Scripted Pipeline</p>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Like Declarative Pipeline, is built on top of the underlying Pipeline sub-system
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Unlike Declarative, Scripted Pipeline is effectively a general-purpose DSL built with Groovy
+</span>
+</li>
+<li>
+
+
+<span class='fragment '
+  >
+  Most functionality provided by the Groovy language is made available to users of Scripted Pipeline, which means it can be a very expressive and flexible tool
+</span>
+</li>
+</ul>
+</section><section>
+<h2 id="explore-jenkins-pipeline">Explore Jenkins Pipeline</h2>
+</section><section>
+<ul>
+<li>Simple Pipeline</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>pipeline <span style="color:#f92672">{</span>
+    agent any
+
+    stages <span style="color:#f92672">{</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                echo <span style="color:#e6db74">&#39;Hello World&#39;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></section><section>
+<ul>
+<li>Docker as Agent</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>pipeline <span style="color:#f92672">{</span>
+    agent <span style="color:#f92672">{</span> docker <span style="color:#f92672">{</span> image <span style="color:#e6db74">&#39;ruby:2.6.6-alpine&#39;</span> <span style="color:#f92672">}}</span>
+    stages <span style="color:#f92672">{</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Version check&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                sh <span style="color:#e6db74">&#39;ruby --version&#39;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></section><section>
+<h2 id="using-a-image-built-for-specific-purpose">Using a image built for specific purpose</h2>
+</section><section>
+<p>Use contents from this folder for building image</p>
+<p>cd to calculator_as_interpreter in
+<a href="https://github.com/slashpai/docker_k8s_training/tree/main/docker_apps">https://github.com/slashpai/docker_k8s_training/tree/main/docker_apps</a></p>
+</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>pipeline <span style="color:#f92672">{</span>
+    agent <span style="color:#f92672">{</span> docker <span style="color:#f92672">{</span> image <span style="color:#e6db74">&#39;calculator_interpreter:v1&#39;</span> <span style="color:#f92672">}}</span>
+    stages <span style="color:#f92672">{</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Sum 2 + 3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                sh <span style="color:#e6db74">&#39;ruby /app/calculator.rb 2 + 3&#39;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Diff 2 - 3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                sh <span style="color:#e6db74">&#39;ruby /app/calculator.rb 2 - 3&#39;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></section><section>
+<ul>
+<li>Parameters in Pipeline</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>pipeline <span style="color:#f92672">{</span>
+    agent any
+    parameters <span style="color:#f92672">{</span>
+        string<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#39;PERSON&#39;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#39;Mr Jenkins&#39;</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#39;Who should I say hello to?&#39;</span><span style="color:#f92672">)</span>
+
+        text<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#39;BIOGRAPHY&#39;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#39;Enter some information about the person&#39;</span><span style="color:#f92672">)</span>
+
+        booleanParam<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#39;TOGGLE&#39;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#39;Toggle this value&#39;</span><span style="color:#f92672">)</span>
+
+        choice<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#39;CHOICE&#39;</span><span style="color:#f92672">,</span> choices: <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;One&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;Two&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;Three&#39;</span><span style="color:#f92672">],</span> description: <span style="color:#e6db74">&#39;Pick something&#39;</span><span style="color:#f92672">)</span>
+
+        password<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#39;PASSWORD&#39;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#39;SECRET&#39;</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#39;Enter a password&#39;</span><span style="color:#f92672">)</span>
+    <span style="color:#f92672">}</span>
+    stages <span style="color:#f92672">{</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Example&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                echo <span style="color:#e6db74">&#34;Hello ${params.PERSON}&#34;</span>
+
+                echo <span style="color:#e6db74">&#34;Biography: ${params.BIOGRAPHY}&#34;</span>
+
+                echo <span style="color:#e6db74">&#34;Toggle: ${params.TOGGLE}&#34;</span>
+
+                echo <span style="color:#e6db74">&#34;Choice: ${params.CHOICE}&#34;</span>
+
+                echo <span style="color:#e6db74">&#34;Password: ${params.PASSWORD}&#34;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></section><section>
+<h2 id="parallel-stages">Parallel Stages</h2>
+</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>pipeline <span style="color:#f92672">{</span>
+    agent any
+
+    stages <span style="color:#f92672">{</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            steps <span style="color:#f92672">{</span>
+                echo <span style="color:#e6db74">&#39;Hello World&#39;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Parallel Stages&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            parallel <span style="color:#f92672">{</span>
+                stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;parallel 1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    steps <span style="color:#f92672">{</span>
+                        echo <span style="color:#e6db74">&#39;Hello from Parallel Stage 1&#39;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+                stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;parallel 2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    steps <span style="color:#f92672">{</span>
+                        echo <span style="color:#e6db74">&#39;Hello from Parallel Stage 2&#39;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></section><section>
+<p>More options: <a href="https://www.jenkins.io/doc/book/pipeline/syntax/">https://www.jenkins.io/doc/book/pipeline/syntax/</a></p>
+</section><section>
+<h2 id="pipleline-examples">Pipleline Examples</h2>
+<p><a href="https://github.com/jenkinsci/pipeline-examples">https://github.com/jenkinsci/pipeline-examples</a></p>
+</section><section>
+<h2 id="blueocean-dashboard">BlueOcean Dashboard</h2>
+</section><section>
+<h2 id="credentials">Credentials</h2>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  There are numerous 3rd-party sites and applications that can interact with Jenkins, for example, artifact repositories, cloud-based storage systems and services, and so on
+</span></li>
+</ul>
+</section><section>
+<ul>
+<li>
+
+<span class='fragment '
+  >
+  A systems administrator of such an application can configure credentials in the application for dedicated use by Jenkins
+</span></li>
+<li>
+
+<span class='fragment '
+  >
+  Once a Jenkins manager (i.e. a Jenkins user who administers a Jenkins site) adds/configures these credentials in Jenkins, the credentials can be used by Pipeline projects to interact with these 3rd party applications
+</span></li>
+</ul>
+</section><section>
+<h2 id="helpful-plugins-for-system-admin">Helpful Plugins for System admin</h2>
+</section><section>
+<p><a href="https://github.com/jenkinsci/ssh-steps-plugin">https://github.com/jenkinsci/ssh-steps-plugin</a></p>
+</section><section>
+<h2 id="managing-jenkins">Managing Jenkins</h2>
+</section><section>
+<h2 id="script-console">Script Console</h2>
+</section><section>
+<p>Usecase: <a href="https://support.cloudbees.com/hc/en-us/articles/360051376772-How-can-I-purge-clean-the-build-queue-?page=3">https://support.cloudbees.com/hc/en-us/articles/360051376772-How-can-I-purge-clean-the-build-queue-?page=3</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>Jenkins<span style="color:#f92672">.</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">.</span><span style="color:#a6e22e">queue</span><span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">()</span>
+</code></pre></div></section><section>
+<h2 id="helpful-scripts">Helpful scripts</h2>
+<p><a href="https://github.com/cloudbees/jenkins-scripts">https://github.com/cloudbees/jenkins-scripts</a></p>
+</section><section>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.jenkins.io/doc">https://www.jenkins.io/doc</a></li>
+<li><a href="https://www.jenkins.io/doc/book/pipeline">https://www.jenkins.io/doc/book/pipeline</a></li>
+<li><a href="https://www.jenkins.io/doc/book/blueocean">https://www.jenkins.io/doc/book/blueocean</a></li>
+</ul>
+</section><section>
+<h2 id="training-summary">Training Summary</h2>
+<ul>
+<li>
+<p>Why Jenkins?</p>
+</li>
+<li>
+<p>Jenkins Pipelines</p>
+</li>
+<li>
+<p>Helpful plugins</p>
+</li>
+<li>
+<p>Managing Jenkins</p>
+</li>
+</ul>
+</section>
+
+  
+<section data-noprocess data-shortcode-slide>
+  <h1 id="thank-you">Thank you!</h1>
+</section>
+<section data-noprocess data-shortcode-slide>
+  
+<h1 id="any-questions">Any questions?</h1>
+
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/presentations/reveal-hugo/object-assign.js></script>
+
+<a href="/presentations/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"highlight_theme":"github","templates":{"blue":{"background":"#a5e2fd","transition":"slide-in fade-out"},"yellow":{"background":"#f6f195","transition":"slide-in fade-out"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"margin":0.2,"theme":"league"}</script>
+
+<script src="/presentations/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/presentations/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    
+    
+  </body>
+</html>
