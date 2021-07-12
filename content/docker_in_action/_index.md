@@ -439,9 +439,41 @@ docker-compose \<command\>
 
 ---
 
-## Examples
+## Example Application
 
-```go
+---
+
+https://github.com/slashpai/voter-app
+
+---
+
+```yaml
+version: "3.7"
+
+services:
+  vote:
+    build: .
+    command: /voter-app
+    environment:
+      VOTER_REDIS_ADDR: "voter-app_redis_1:6379"
+      VOTER_REDIS_PASSWORD: ""
+      VOTER_REDIS_DB: 0
+    ports:
+      - "8090:8080"
+  redis:
+    image: redis:alpine
+    ports: ["6379"]
+    volumes:
+      - voter_redis_data:/data
+volumes:
+  voter_redis_data: {}
+```
+
+---
+
+## Other Examples
+
+```yaml
 version: "3.7"
 
 services:
