@@ -695,20 +695,44 @@ cd docker_apps
   <span style="color:#a6e22e">up</span>                 <span style="color:#a6e22e">Create</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">start</span> <span style="color:#a6e22e">containers</span>
   <span style="color:#a6e22e">version</span>            <span style="color:#a6e22e">Show</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">Docker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">Compose</span> <span style="color:#a6e22e">version</span> <span style="color:#a6e22e">information</span>
 </code></pre></div></section><section>
-<h2 id="examples">Examples</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#a6e22e">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
+<h2 id="example-application">Example Application</h2>
+</section><section>
+<p><a href="https://github.com/slashpai/voter-app">https://github.com/slashpai/voter-app</a></p>
+</section><section>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
 
-<span style="color:#a6e22e">services</span>:
-  <span style="color:#a6e22e">prometheus</span>:
-    <span style="color:#a6e22e">image</span>: <span style="color:#a6e22e">prom</span><span style="color:#f92672">/</span><span style="color:#a6e22e">prometheus</span>:<span style="color:#a6e22e">v2</span><span style="color:#ae81ff">.19.0</span>
-    <span style="color:#a6e22e">container_name</span>: <span style="color:#a6e22e">prom</span>
-    <span style="color:#a6e22e">ports</span>:
-      <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34;9090:9090&#34;</span>
-  <span style="color:#a6e22e">grafana</span>:
-    <span style="color:#a6e22e">image</span>: <span style="color:#a6e22e">grafana</span><span style="color:#f92672">/</span><span style="color:#a6e22e">grafana</span>:<span style="color:#ae81ff">7.0.3</span>
-    <span style="color:#a6e22e">container_name</span>: <span style="color:#a6e22e">grafana</span>
-    <span style="color:#a6e22e">ports</span>:
-      <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34;3000:3000&#34;</span>
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">vote</span>:
+    <span style="color:#f92672">build</span>: <span style="color:#ae81ff">.</span>
+    <span style="color:#f92672">command</span>: <span style="color:#ae81ff">/voter-app</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">VOTER_REDIS_ADDR</span>: <span style="color:#e6db74">&#34;voter-app_redis_1:6379&#34;</span>
+      <span style="color:#f92672">VOTER_REDIS_PASSWORD</span>: <span style="color:#e6db74">&#34;&#34;</span>
+      <span style="color:#f92672">VOTER_REDIS_DB</span>: <span style="color:#ae81ff">0</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;8090:8080&#34;</span>
+  <span style="color:#f92672">redis</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis:alpine</span>
+    <span style="color:#f92672">ports</span>: [<span style="color:#e6db74">&#34;6379&#34;</span>]
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">voter_redis_data:/data</span>
+<span style="color:#f92672">volumes</span>:
+  <span style="color:#f92672">voter_redis_data</span>: {}
+</code></pre></div></section><section>
+<h2 id="other-examples">Other Examples</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
+
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">prometheus</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">prom/prometheus:v2.19.0</span>
+    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">prom</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;9090:9090&#34;</span>
+  <span style="color:#f92672">grafana</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana:7.0.3</span>
+    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">grafana</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;3000:3000&#34;</span>
 </code></pre></div></section><section>
 <h3 id="lets-try-docker-compose">Let&rsquo;s try docker-compose</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="nohighlight" data-noescape>cd to docker_k8s_training/docker-compose/monitoring
